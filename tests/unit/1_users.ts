@@ -25,7 +25,7 @@ describe("Testing User class", () => {
     let pasteque: Pet
     beforeAll(() => {
       user = new User('John', 'Hammond')
-      pasteque = new Pet("Pastèque", "dog", 2.5)
+      pasteque = new Pet(1, "Pastèque", "dog", new Date("03/24/2023"))
     })
     describe("Add Pet", () => {
       beforeAll(() => {

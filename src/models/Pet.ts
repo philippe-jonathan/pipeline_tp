@@ -6,7 +6,10 @@ export default class Pet implements JSONable {
   name: string
   kind: string
   birthDate: Date
-  constructor(vetId: Number, name: string, kind: string, birthDate: Date) {
+  constructor(vetId?: Number, name?: string, kind?: string, birthDate?: Date) {
+    if(!vetId || !name || !kind || !birthDate) {
+      throw new Error("Parms missing")
+    }
     this.vetId = vetId
     this.name = name
     this.kind = kind || ""
@@ -40,6 +43,12 @@ export default class Pet implements JSONable {
    * }
    * ```
    */toJSON(): Object {
+    return {
+      id: this.id,
+      name: this.name,
+      kind: this.kind,
+      birhtdate: this.birthDate
+    }
     throw new Error("Not implemented")
   }
 }
