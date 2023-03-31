@@ -23,12 +23,12 @@ jobs:
 
       - name: Functionnal tests
         run: |
-          docker compose -f ./tests/functionnal/dependencies up -d
+          docker compose up -f ./tests/functionnal/dependencies -d
           cd ./
           npm run test:func
 
       - name: Integration tests
         run: |
-          docker compose -f ./tests/integ up -d
+          docker compose up -f ./tests/integ -d
           cd ./
           npm run test:integ
