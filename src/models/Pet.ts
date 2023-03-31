@@ -6,10 +6,7 @@ export default class Pet implements JSONable {
   name: string
   kind: string
   birthDate: Date
-  constructor(vetId?: Number, name?: string, kind?: string, birthDate?: Date) {
-    if(!vetId || !name || !kind || !birthDate) {
-      throw new Error("Parms missing")
-    }
+  constructor(vetId: Number, name: string, kind: string, birthDate: Date) {
     this.vetId = vetId
     this.name = name
     this.kind = kind || ""
@@ -20,7 +17,12 @@ export default class Pet implements JSONable {
    * @returns Number the current pet's age calculated from its birthDate
    */
   getAge(): number {
-    throw new Error("Not implemented")
+    const today = new Date()
+    const age = today.getFullYear() - this.birthDate.getFullYear()
+    if (today.getMonth() === this.birthDate.getMonth()) {
+      return age - (today.getDate() > this.birthDate.getDate() ? 0 : 1)
+    }
+    return age - (today.getMonth() > this.birthDate.getMonth() ? 0 : 1)
   }
 
   /**
@@ -44,11 +46,10 @@ export default class Pet implements JSONable {
    * ```
    */toJSON(): Object {
     return {
-      id: this.id,
+      vetId: this.vetId,
       name: this.name,
       kind: this.kind,
-      birhtdate: this.birthDate
+      age: this.getAge()
     }
-    throw new Error("Not implemented")
   }
 }
