@@ -9,9 +9,21 @@ on:
       - '**'
       
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  # install:
+  #   runs-on: ubuntu-latest
 
+  #   steps:
+  #     - uses: actions/checkout@v3
+
+  #     - name: Install dependencies
+  #       run: npm install
+
+  # tests:
+  #   needs:
+  #     - install
+
+  unit_tests:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
@@ -21,14 +33,30 @@ jobs:
       - name: Unit tests
         run: npm run test:unit
 
+  fonctionnal_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Functionnal tests
         run: |
-          docker compose up -f ./tests/functionnal/dependencies -d
+          docker compose -f ./tests/functionnal/dependencies up -d
           cd ./
           npm run test:func
 
+  integration_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Integration tests
         run: |
-          docker compose up -f ./tests/integ -d
+          docker compose -f ./tests/integ up -d
           cd ./
           npm run test:integ
