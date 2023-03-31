@@ -43,7 +43,7 @@ jobs:
 
       - name: Functionnal tests
         run: |
-          docker compose -f ./tests/functionnal/dependencies up -d
+          docker compose -f ./tests/functionnal/dependencies/docker-compose.yaml up -d
           cd ./
           npm run test:func
 
@@ -57,6 +57,6 @@ jobs:
 
       - name: Integration tests
         run: |
-          docker compose -f ./tests/integ up -d
+          docker compose -f ./tests/integ/docker-compose.yaml up -d
           cd ./
           npm run test:integ
