@@ -28,3 +28,11 @@ jobs:
           sleep 5
           cd ./
           npm run test:func
+
+      - name: Integration tests
+        run: |
+          cd ./tests/integ
+          docker compose up -d
+          sleep 5
+          cd ./
+          npm run test:integ
