@@ -25,6 +25,6 @@ jobs:
         run: |
           cd ./tests/functionnal/dependencies
           docker compose up -d
-          sleep 30
+          sleep 5
           cd ./
-          npm run test:functionnal
+          npm run test:func
