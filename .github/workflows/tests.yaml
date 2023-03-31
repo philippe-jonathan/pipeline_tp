@@ -20,6 +20,7 @@ jobs:
         run: npm install
 
   unit_tests:
+    runs-on: ubuntu-latest
     needs:
       - install
     steps:
@@ -27,6 +28,7 @@ jobs:
         run: npm run test:unit
 
   fonctionnal_tests:
+    runs-on: ubuntu-latest
     needs:
       - install
     steps:
@@ -37,6 +39,7 @@ jobs:
           npm run test:func
 
   integration_tests:
+    runs-on: ubuntu-latest
     needs:
       - install
     steps:
