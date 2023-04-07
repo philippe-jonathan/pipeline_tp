@@ -19,7 +19,9 @@ jobs:
           persist-credentials: true
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          ls
 
   unit_tests:
     needs:
@@ -27,7 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Unit tests
-        run: npm run test:unit
+        run: |
+          npm run test:unit
+          ls
 
   fonctionnal_tests:
     needs:
@@ -37,8 +41,8 @@ jobs:
       - name: Functionnal tests
         run: |
           docker compose -f ./tests/functionnal/dependencies/docker-compose.yaml up -d
-          cd ./
           npm run test:func
+          ls
 
   integration_tests:
     needs:
