@@ -23,11 +23,23 @@ jobs:
           npm install
           ls
 
+      - name: Create artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: ./
+
   unit_tests:
     needs:
       - install
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+          path: ./
+
       - name: Unit tests
         run: |
           npm run test:unit
@@ -42,7 +54,6 @@ jobs:
         run: |
           docker compose -f ./tests/functionnal/dependencies/docker-compose.yaml up -d
           npm run test:func
-          ls
 
   integration_tests:
     needs:
