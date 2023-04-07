@@ -10,56 +10,38 @@ on:
       
 jobs:
 
-  install:
+  unit_tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+
+      - name: Unit tests
+        run: npm run test:unit
+
+  fonctionnal_tests:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          persist-credentials: true
-
       - name: Install dependencies
-        run: |
-          npm install
-          ls
+        run: npm install
 
-      - name: Create artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: ./
-
-  unit_tests:
-    needs:
-      - install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-          path: ./
-
-      - name: Unit tests
-        run: |
-          npm run test:unit
-          ls
-
-  fonctionnal_tests:
-    needs:
-      - install
-    runs-on: ubuntu-latest
-    steps:
       - name: Functionnal tests
         run: |
           docker compose -f ./tests/functionnal/dependencies/docker-compose.yaml up -d
           npm run test:func
 
   integration_tests:
-    needs:
-      - install
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm install
+
       - name: Integration tests
         run: |
           docker compose -f ./tests/integ/docker-compose.yaml up -d
